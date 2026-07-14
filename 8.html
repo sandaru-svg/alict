@@ -3,8 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Octal Calculator | A/L ICT</title>
+
+    <style>
+        @media (min-width: 992px) {
+            /* මුළු Card එකම Decimal එකේ වගේ හැමවෙලේම පළල් කර තබයි */
+            .calculator-card {
+                max-width: 1000px !important;
+                width: 95% !important;
+                margin: 40px auto !important;
+                padding: 30px !important;
+                display: block !important;
+            }
+
+            /* කැල් එක වම් පැත්තටත්, breakdown එක දකුණු පැත්තටත් සැමවිටම තබයි */
+            .calc-main-wrapper {
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 35px !important;
+                align-items: flex-start !important;
+            }
+
+            /* වම් පැත්තේ ඇති කැල්කියුලේටර කොටසේ ප්‍රමාණය ස්ථාවරව තබා ගනී */
+            .calc-interface-block {
+                flex: 0 0 380px !important;
+                width: 380px !important;
+            }
+
+            /* දකුණු පැත්තේ ඇති Breakdown කොටස සැමවිටම විවෘතව තබයි (No collapse) */
+            .working-accordion {
+                flex: 1 !important;
+                margin-top: 0 !important;
+                display: block !important;
+            }
+
+            /* PC View එකේදී බටන් එකක් වගේ පෙනීම අයින් කර ඩෙසිමල් එක වගේ Flat Header එකක් කරයි */
+            .accordion-header {
+                background: transparent !important;
+                padding: 0 0 12px 0 !important;
+                border: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+                cursor: default !important;
+                width: 100% !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                font-size: 0.85rem !important;
+                letter-spacing: 0.05em !important;
+                pointer-events: none !important; /* PC එකේදී ක්ලික් කරන්න බැරි කරයි */
+            }
+
+            /* Content Container එක සැමවිටම පෙනෙන්න සලස්වයි */
+            .steps-container {
+                max-height: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: block !important;
+                padding-top: 15px !important;
+            }
+
+            .steps-content {
+                overflow-x: auto !important;
+                width: 100% !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -36,13 +100,11 @@
                 Octal Calculator
             </a>
             <a href="ab.html" class="menu-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-    </svg>
-    About developer
-</a>
-
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                About developer
             </a>
         </nav>
     </div>
@@ -90,7 +152,7 @@
 
             <div class="working-accordion">
                 <button class="accordion-header" id="accordionToggle">
-                    Show Working Breakdown <span class="arrow-icon" id="arrowIcon">▼</span>
+                    SHOW WORKING BREAKDOWN <span class="arrow-icon" id="arrowIcon">▼</span>
                 </button>
                 <div class="steps-container" id="stepsPanel">
                     <div class="steps-content" id="stepsBox">
@@ -137,6 +199,9 @@
         });
 
         function toggleAccordion(forceOpen = false) {
+            // PC Screen එකකදී Accordion එක Close වීම වළක්වයි (සැමවිටම Open කර තබයි)
+            if (window.innerWidth >= 992) return;
+
             if (stepsPanel.classList.contains('open') && !forceOpen) {
                 stepsPanel.classList.remove('open');
                 stepsPanel.style.maxHeight = null;
@@ -146,6 +211,11 @@
                 stepsPanel.style.maxHeight = stepsPanel.scrollHeight + "px";
                 arrowIcon.textContent = "▲";
             }
+        }
+
+        // --- PC View එක ආරම්භයේදීම Arrow එක උඩට හරවා තැබීමට සරල ලොජික් එකක් ---
+        if (window.innerWidth >= 992) {
+            arrowIcon.textContent = "▲";
         }
 
         // --- OCTAL MULTI-CHAIN COMPUTATIONAL ENGINE ---
@@ -195,7 +265,9 @@
             resultView.textContent = "0";
             expressionView.textContent = "";
             stepsBox.innerHTML = "Input octal equations (e.g., 1765+732) and click '=' to generate the textbook logic sequence trace matrix.";
-            if (stepsPanel.classList.contains('open')) {
+            
+            // මොබයිල් වලදී පමණක් රීසෙට් කිරීමේදී මැක්ස් හයිට් එක සකසයි
+            if (window.innerWidth < 992 && stepsPanel.classList.contains('open')) {
                 stepsPanel.style.maxHeight = stepsPanel.scrollHeight + "px";
             }
         }

@@ -1,0 +1,2058 @@
+/* ==================================================== */
+/* --- GLOBAL & BASE STYLES ---                         */
+/* ==================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #060a12; 
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* --- NAVBAR HEADER --- */
+header {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    margin-bottom: 20px;
+    transition: max-width 0.4s ease;
+}
+
+.nav-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 242, 254, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00f2fe;
+    background: rgba(30, 41, 59, 0.3);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-icon:hover {
+    transform: scale(1.05);
+    background: rgba(0, 242, 254, 0.1);
+}
+
+.header-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+/* ==================================================== */
+/* --- MAIN LANDING PAGE COMPONENTS ---                 */
+/* ==================================================== */
+.hero-banner {
+    width: 100%;
+    max-width: 600px;
+    height: 180px; 
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 135, 0.3);
+    box-shadow: 0 0 25px rgba(0, 255, 135, 0.15);
+    margin-bottom: 35px;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.hero-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(0, 255, 135, 0.25);
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: max-width 0.4s ease;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00c6ff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- ICT INFO CARDS --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.info-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #00ff87;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    background: rgba(15, 23, 42, 0.8);
+    border-left-color: #00c6ff;
+}
+
+.card-img-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-text h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.card-text p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* --- FEATURES BOXES --- */
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature-box {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.feature-box:hover {
+    transform: scale(1.03);
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 12px 24px rgba(0, 242, 254, 0.1);
+}
+
+.feature-box .feature-icon {
+    width: 45px;
+    height: 45px;
+    color: #00ff87;
+}
+
+.feature-box.practical-box .feature-icon {
+    color: #00c6ff;
+}
+
+.feature-box h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.feature-box p {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* ==================================================== */
+/* --- CALCULATOR SPECIFIC STYLES ---                   */
+/* ==================================================== */
+.calculator-card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.1);
+    padding: 30px 25px;
+    border-radius: 24px;
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-width 0.4s ease;
+}
+
+.calculator-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.display-container {
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px solid #1e293b;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 25px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
+    position: relative;
+}
+
+.expression-screen {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 600;
+    min-height: 24px;
+    letter-spacing: 1px;
+}
+
+.result-screen {
+    font-size: 2.2rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+}
+
+.base-badge {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    font-size: 0.75rem;
+    background: #1e293b;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #00c6ff;
+    font-weight: 600;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.calc-btn {
+    background: rgba(30, 41, 59, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #f8fafc;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+
+.calc-btn:hover {
+    background: rgba(0, 198, 255, 0.1);
+    border-color: rgba(0, 198, 255, 0.3);
+    transform: scale(1.03);
+    color: #00c6ff;
+}
+
+.calc-btn:active {
+    transform: scale(0.98);
+}
+
+.btn-clear {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.15);
+}
+.btn-clear:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ff6b6b;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.btn-op {
+    color: #00ff87;
+    border-color: rgba(0, 255, 135, 0.15);
+}
+.btn-op:hover {
+    background: rgba(0, 255, 135, 0.1);
+    color: #00ff87;
+    border-color: rgba(0, 255, 135, 0.4);
+}
+
+.btn-equals {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    color: #060a12;
+    border: none;
+}
+.btn-equals:hover {
+    background: linear-gradient(135deg, #00ff87, #00c6ff);
+    color: #060a12;
+    box-shadow: 0 0 15px rgba(0, 255, 135, 0.3);
+}
+
+/* --- ACCORDION WORKING SECTION --- */
+.working-accordion {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    color: #00ff87;
+}
+
+.arrow-icon {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.steps-container {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(9, 15, 26, 0.85);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    margin-top: 12px;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+}
+
+.steps-container.open {
+    border-color: rgba(0, 242, 254, 0.15);
+}
+
+.steps-content {
+    padding: 15px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+/* --- SIDEBAR & OVERLAY MENU --- */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 7, 14, 0.4);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+    backdrop-filter: blur(8px);
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 290px;
+    height: 100vh;
+    background: rgba(11, 19, 32, 0.92);
+    backdrop-filter: blur(16px);
+    border-left: 1px solid rgba(0, 242, 254, 0.25);
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.close-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(239, 68, 68, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close-icon:hover {
+    transform: scale(1.08) rotate(90deg);
+    background: rgba(239, 68, 68, 0.2);
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item svg {
+    width: 20px;
+    height: 20px;
+    color: #475569;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-item:hover {
+    background: rgba(30, 41, 59, 0.5);
+    color: #fff;
+    border-color: rgba(0, 255, 135, 0.25);
+    transform: translateX(6px);
+}
+
+.menu-item:hover svg {
+    color: #00ff87;
+    transform: scale(1.1);
+}
+
+.menu-item.active-link {
+    background: rgba(0, 198, 255, 0.1);
+    color: #00c6ff;
+    border-color: rgba(0, 198, 255, 0.3);
+}
+
+.menu-item.active-link svg {
+    color: #00c6ff;
+}
+
+/* --- FOOTER COPYRIGHT --- */
+footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    letter-spacing: 0.8px;
+    padding-bottom: 20px;
+}
+
+footer .cr-text {
+    color: #475569;
+    text-transform: lowercase;
+}
+
+footer .al-text {
+    font-weight: 600;
+    background: linear-gradient(90deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+.invalid-flash {
+    animation: shake 0.4s ease-in-out;
+    border-color: #ef4444 !important;
+}
+
+/* ==================================================== */
+/* --- RESPONSIVE MEDIA QUERIES (PC / LAPTOP) ---       */
+/* ==================================================== */
+
+/* Tablet & Smaller Laptops */
+@media (min-width: 768px) {
+    header, .content-wrapper {
+        max-width: 1000px; 
+    }
+
+    .hero-banner {
+        max-width: 1000px;
+        height: 230px; 
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px;
+    }
+
+    .info-card {
+        flex-direction: column; 
+        text-align: center;
+        padding: 25px 20px;
+        border-left: none;
+        border-bottom: 4px solid #00ff87; 
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px); 
+        border-bottom-color: #00c6ff;
+    }
+
+    .features-container {
+        gap: 20px;
+    }
+}
+
+/* Large Screens (Calculator Layout Adjustments) */
+@media (min-width: 820px) {
+    header {
+        max-width: 900px;
+    }
+
+    .calculator-card {
+        max-width: 900px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr; 
+        column-gap: 30px;
+        row-gap: 0;
+        align-items: start;
+        padding: 35px;
+    }
+
+    .calculator-card h2 {
+        grid-column: span 2;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .display-container {
+        grid-column: 1;
+        grid-row: 2;
+        margin-bottom: 18px;
+    }
+
+    .calc-grid {
+        grid-column: 1;
+        grid-row: 3;
+        margin-bottom: 0;
+    }
+
+    .working-accordion {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        border-top: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 0;
+        padding-left: 25px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .steps-container {
+        margin-top: 15px;
+    }
+}
+
+/* ==================================================== */
+/* --- MAIN LANDING PAGE COMPONENTS (NEW) ---          */
+/* ==================================================== */
+.hero-banner {
+    width: 100%;
+    max-width: 600px;
+    height: 180px; 
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 135, 0.3);
+    box-shadow: 0 0 25px rgba(0, 255, 135, 0.15);
+    margin-bottom: 35px;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.hero-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(0, 255, 135, 0.25);
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: max-width 0.4s ease;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00c6ff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- ICT INFO CARDS --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.info-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #00ff87;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    background: rgba(15, 23, 42, 0.8);
+    border-left-color: #00c6ff;
+}
+
+.card-img-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-text h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.card-text p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* --- FEATURES BOXES --- */
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature-box {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.feature-box:hover {
+    transform: scale(1.03);
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 12px 24px rgba(0, 242, 254, 0.1);
+}
+
+.feature-box .feature-icon {
+    width: 45px;
+    height: 45px;
+    color: #00ff87;
+}
+
+.feature-box.practical-box .feature-icon {
+    color: #00c6ff;
+}
+
+.feature-box h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.feature-box p {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* ==================================================== */
+/* --- NEW ADDITIONS FOR BINARY CALCULATOR & TRACE --- */
+/* ==================================================== */
+
+/* Huge Custom Shapes for 0 and 1 Buttons */
+.btn-binary-large {
+    grid-column: span 2;
+    padding: 30px 18px;
+    font-size: 2.2rem;
+    background: rgba(0, 242, 254, 0.04);
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.03);
+    color: #00c6ff;
+}
+
+.btn-binary-large:hover {
+    background: rgba(0, 242, 254, 0.12);
+    border-color: rgba(0, 242, 254, 0.45);
+    color: #00f2fe;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+}
+
+/* Overriding Equals Button Layout to match HTML Grid layout */
+.btn-equals {
+    grid-column: span 4 !important;
+    padding: 20px;
+    font-size: 1.5rem;
+}
+
+/* Horizontal Scroll for Table Breakdown on Mobile Screens */
+.steps-content {
+    overflow-x: auto;
+}
+
+/* Textbook Style Logic Sequence Trace Matrix Layout */
+.trace-table {
+    margin: 15px 0;
+    border-collapse: collapse;
+    font-family: 'Consolas', monospace;
+    text-align: center;
+}
+
+.trace-table td {
+    padding: 6px 12px;
+    min-width: 45px;
+}
+
+.row-line {
+    border-bottom: 2px solid #334155;
+}
+
+.row-double-line {
+    border-bottom: 4px double #00ff87;
+}
+
+.badge-sub {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 1px 6px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+/* ==================================================== */
+/* --- PC / LAPTOP SIDE-BY-SIDE FIXED MEDIA QUERY ---   */
+/* ==================================================== */
+@media (min-width: 850px) {
+    header {
+        max-width: 1000px;
+        margin-bottom: 30px;
+    }
+
+    .calculator-card {
+        max-width: 1000px !important;
+        display: grid;
+        grid-template-columns: 400px 1fr !important;
+        gap: 30px !important;
+        align-items: start;
+        padding: 35px;
+    }
+
+    .calculator-card h2 {
+        grid-column: span 2;
+        text-align: left;
+        margin-bottom: 15px;
+        font-size: 1.7rem;
+    }
+
+    .display-container {
+        grid-column: 1;
+        margin-bottom: 20px;
+    }
+
+    .calc-grid {
+        grid-column: 1;
+        margin-bottom: 0;
+    }
+
+    .working-accordion {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        border-top: none !important;
+        border-left: 1px solid rgba(0, 242, 254, 0.15) !important;
+        padding-top: 0 !important;
+        padding-left: 30px !important;
+        height: auto;
+    }
+
+    .accordion-header {
+        font-size: 0.9rem;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* ==================================================== */
+/* --- MAIN LANDING PAGE COMPONENTS (MISSING IN HTML) --- */
+/* ==================================================== */
+.hero-banner {
+    width: 100%;
+    max-width: 600px;
+    height: 180px; 
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 135, 0.3);
+    box-shadow: 0 0 25px rgba(0, 255, 135, 0.15);
+    margin-bottom: 35px;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.hero-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(0, 255, 135, 0.25);
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: max-width 0.4s ease;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00c6ff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- ICT INFO CARDS --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.info-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #00ff87;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    background: rgba(15, 23, 42, 0.8);
+    border-left-color: #00c6ff;
+}
+
+.card-img-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-text h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.card-text p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* --- FEATURES BOXES --- */
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature-box {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.feature-box:hover {
+    transform: scale(1.03);
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 12
+
+  /* ==================================================== */
+/* --- EXTRA & MISSING UI REFINEMENTS (COPY & PASTE) -- */
+/* ==================================================== */
+
+/* 1. Dark Theme එකට ගැලපෙන පරිදි Custom Scrollbar එක හැඩගැන්වීම */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #060a12;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 242, 254, 0.2);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 242, 254, 0.45);
+}
+
+/* 2. Text Select කරන විට Neon Theme එකට අනුව වෙනස් වීම */
+::selection {
+    background: rgba(0, 255, 135, 0.25);
+    color: #00ff87;
+}
+
+/* 3. HTML එකේ ඇති SVG Icons වඩාත් සුමටව Scale වීමට */
+.nav-icon svg, 
+.close-icon svg, 
+.dev-avatar-box svg,
+.contact-item svg {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+
+/* 4. Section Title ඇතුළේ තියන Emoji සහ Text එක සමාන්තරව (Align) තබා ගැනීමට */
+.section-title span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 5. Contact Item එක ඇතුළේ තියන ප්‍රධාන Text Span එක නිවැරදිව spacing තබා ගැනීම */
+.contact-item > span:not(.contact-detail) {
+    flex-grow: 1;
+}
+
+/* 6. Keyboard Accessibility සඳහා Focus States (Links/Buttons වලට) */
+.nav-icon:focus-visible, 
+.contact-item:focus-visible, 
+.menu-item:focus-visible {
+    outline: 2px solid #00c6ff;
+    outline-offset: 3px;
+}
+
+/* 7. Page එක Load වෙද්දී Cards එකින් එක උඩට ලස්සනට Fade-in වෙන Entry Animation එක */
+.profile-container, 
+.bio-card, 
+section {
+    opacity: 0;
+    animation: slideUpFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.profile-container { animation-delay: 0.1s; }
+.bio-card { animation-delay: 0.24s; }
+section:nth-of-type(1) { animation-delay: 0.38s; }
+section:nth-of-type(2) { animation-delay: 0.52s; }
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================================================== */
+/* --- 1. GLOBAL UI REFINEMENTS & ACCESSIBILITY ------- */
+/* ==================================================== */
+
+/* Custom Scrollbar එක හැඩගැන්වීම */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #060a12;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 242, 254, 0.2);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 242, 254, 0.45);
+}
+
+/* Text Select කරන විට Neon Theme එක */
+::selection {
+    background: rgba(0, 255, 135, 0.25);
+    color: #00ff87;
+}
+
+/* SVG Icons සුමටව Scale වීම */
+.nav-icon svg, 
+.close-icon svg, 
+.dev-avatar-box svg,
+.contact-item svg {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+
+/* Section Title ඇතුළේ Emoji සහ Text එක Align කිරීමට */
+.section-title span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Contact Item spacing */
+.contact-item > span:not(.contact-detail) {
+    flex-grow: 1;
+}
+
+/* Keyboard Accessibility සඳහා Focus States */
+.nav-icon:focus-visible, 
+.contact-item:focus-visible, 
+.menu-item:focus-visible {
+    outline: 2px solid #00c6ff;
+    outline-offset: 3px;
+}
+
+
+/* ==================================================== */
+/* --- 2. MAIN LANDING PAGE COMPONENTS ---------------- */
+/* ==================================================== */
+.hero-banner {
+    width: 100%;
+    max-width: 600px;
+    height: 180px; 
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 135, 0.3);
+    box-shadow: 0 0 25px rgba(0, 255, 135, 0.15);
+    margin-bottom: 35px;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.hero-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(0, 255, 135, 0.25);
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.section-title {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00c6ff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ICT Info Cards Grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.info-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #00ff87;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    background: rgba(15, 23, 42, 0.8);
+    border-left-color: #00c6ff;
+}
+
+.card-img-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-text h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.card-text p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* Features Box Grid */
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature-box {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.feature-box:hover {
+    transform: scale(1.03);
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 12px 24px rgba(0, 242, 254, 0.1);
+}
+
+.feature-box .feature-icon {
+    width: 45px;
+    height: 45px;
+    color: #00ff87;
+}
+
+.feature-box.practical-box .feature-icon {
+    color: #00c6ff;
+}
+
+.feature-box h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.feature-box p {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+
+/* ==================================================== */
+/* --- 3. CALCULATOR & TRACE LAYOUT STYLES ------------ */
+/* ==================================================== */
+.calculator-card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.1);
+    padding: 30px 25px;
+    border-radius: 24px;
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-width 0.4s ease;
+}
+
+.calculator-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.display-container {
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px solid #1e293b;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 25px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
+    position: relative;
+}
+
+.expression-screen {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 600;
+    min-height: 24px;
+    letter-spacing: 1px;
+}
+
+.result-screen {
+    font-size: 2.2rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+}
+
+.base-badge {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    font-size: 0.75rem;
+    background: #1e293b;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #00c6ff;
+    font-weight: 600;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.calc-btn {
+    background: rgba(30, 41, 59, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #f8fafc;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+
+.calc-btn:hover {
+    background: rgba(0, 198, 255, 0.1);
+    border-color: rgba(0, 198, 255, 0.3);
+    transform: scale(1.03);
+    color: #00c6ff;
+}
+
+.calc-btn:active {
+    transform: scale(0.98);
+}
+
+.btn-clear {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.15);
+}
+.btn-clear:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ff6b6b;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.btn-op {
+    color: #00ff87;
+    border-color: rgba(0, 255, 135, 0.15);
+}
+.btn-op:hover {
+    background: rgba(0, 255, 135, 0.1);
+    color: #00ff87;
+    border-color: rgba(0, 255, 135, 0.4);
+}
+
+.btn-binary-large {
+    grid-column: span 2;
+    padding: 30px 18px;
+    font-size: 2.2rem;
+    background: rgba(0, 242, 254, 0.04);
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.03);
+    color: #00c6ff;
+}
+
+.btn-binary-large:hover {
+    background: rgba(0, 242, 254, 0.12);
+    border-color: rgba(0, 242, 254, 0.45);
+    color: #00f2fe;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+}
+
+.btn-equals {
+    grid-column: span 4 !important;
+    padding: 20px;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    color: #060a12;
+    border: none;
+}
+.btn-equals:hover {
+    background: linear-gradient(135deg, #00ff87, #00c6ff);
+    color: #060a12;
+    box-shadow: 0 0 15px rgba(0, 255, 135, 0.3);
+}
+
+/* Accordion Steps Content Breakdown */
+.working-accordion {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    color: #00ff87;
+}
+
+.arrow-icon {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.steps-container {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(9, 15, 26, 0.85);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    margin-top: 12px;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+}
+
+.steps-container.open {
+    border-color: rgba(0, 242, 254, 0.15);
+}
+
+.steps-content {
+    padding: 15px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    overflow-x: auto;
+}
+
+/* Textbook Style Logic Trace Matrix Tables */
+.trace-table {
+    margin: 15px 0;
+    border-collapse: collapse;
+    font-family: 'Consolas', monospace;
+    text-align: center;
+}
+
+.trace-table td {
+    padding: 6px 12px;
+    min-width: 45px;
+}
+
+.row-line {
+    border-bottom: 2px solid #334155;
+}
+
+.row-double-line {
+    border-bottom: 4px double #00ff87;
+}
+
+.badge-sub {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 1px 6px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+
+/* ==================================================== */
+/* --- 4. ANIMATION STATES & KEYFRAMES ---------------- */
+/* ==================================================== */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+.invalid-flash {
+    animation: shake 0.4s ease-in-out;
+    border-color: #ef4444 !important;
+}
+
+/* Page Entry Loading Animations */
+.profile-container, 
+.bio-card, 
+section {
+    opacity: 0;
+    animation: slideUpFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.profile-container { animation-delay: 0.1s; }
+.bio-card { animation-delay: 0.24s; }
+section:nth-of-type(1) { animation-delay: 0.38s; }
+section:nth-of-type(2) { animation-delay: 0.52s; }
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==================================================== */
+/* --- 5. FIXED PC/LAPTOP RESPONSIVE MEDIA QUERIES ---- */
+/* ==================================================== */
+@media (min-width: 768px) {
+    .hero-banner {
+        max-width: 1000px;
+        height: 230px; 
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px;
+    }
+
+    .info-card {
+        flex-direction: column; 
+        text-align: center;
+        padding: 25px 20px;
+        border-left: none;
+        border-bottom: 4px solid #00ff87; 
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px); 
+        border-bottom-color: #00c6ff;
+    }
+
+    .features-container {
+        gap: 20px;
+    }
+}
+
+@media (min-width: 850px) {
+    .calculator-card {
+        max-width: 1000px !important;
+        display: grid;
+        grid-template-columns: 400px 1fr !important;
+        gap: 30px !important;
+        align-items: start;
+        padding: 35px;
+    }
+
+    .calculator-card h2 {
+        grid-column: span 2;
+        text-align: left;
+        margin-bottom: 15px;
+        font-size: 1.7rem;
+    }
+
+    .display-container {
+        grid-column: 1;
+        margin-bottom: 20px;
+    }
+
+    .calc-grid {
+        grid-column: 1;
+        margin-bottom: 0;
+    }
+
+    .working-accordion {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        border-top: none !important;
+        border-left: 1px solid rgba(0, 242, 254, 0.15) !important;
+        padding-top: 0 !important;
+        padding-left: 30px !important;
+        height: auto;
+    }
+
+    .accordion-header {
+        font-size: 0.9rem;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* ==================================================== */
+/* --- NUMBER BASE CONVERTER CARD LAYOUT ------------- */
+/* ==================================================== */
+
+.converter-card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.1);
+    padding: 35px 25px;
+    border-radius: 24px;
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-width 0.4s ease; /* Desktop view එකට සුමටව මාරු වීමට */
+}
+
+.converter-card h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+/* --- INPUT GROUPS & LABELS --- */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.input-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    color: #00c6ff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+/* --- DYNAMIC SHOW WORKING TOGGLE BUTTON --- */
+.toggle-steps {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.toggle-steps:hover {
+    color: #00ff87;
+}
+
+/* --- DYNAMIC LIVE FIELDS (INPUTS) --- */
+.input-wrapper {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px solid #1e293b;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:focus {
+    border-color: #00ff87;
+    box-shadow: 0 0 15px rgba(0, 255, 135, 0.2);
+    transform: scale(1.01);
+}
+
+/* Input එක focus වන විට label සහ buttons වල වර්ණ වෙනස් වීම */
+.input-group:focus-within label {
+    color: #00ff87;
+}
+
+.input-group:focus-within .toggle-steps {
+    color: #00c6ff;
+}
+
+/* --- CONVERTER BASE BADGE ALIGNMENT --- */
+/* Calculator එකේ badge එකට වඩා මෙහි position එක වෙනස් වේ */
+.input-wrapper .base-badge {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    background: #1e293b;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #64748b;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+input:focus ~ .base-badge {
+    background: #00ff87;
+    color: #060a12;
+    font-weight: 600;
+}
+
+/* --- INPUT VALIDATION ERROR STATE --- */
+.invalid {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2) !important;
+    animation: shake 0.4s ease-in-out;
+}
+
+
+/* ==================================================== */
+/* --- BONUS: PC / LAPTOP RESPONSIVE FOR CONVERTER --- */
+/* ==================================================== */
+/* ලොකු screen වලදී card එක Home Hub එකේ ප්‍රමාණයටම ගැලපීමට */
+@media (min-width: 768px) {
+    .converter-card {
+        max-width: 1000px;
+        padding: 40px;
+    }
+}
+
+/* ==================================================== */
+/* --- THEORY NOTES PAGE SPECIFIC STYLES ---            */
+/* ==================================================== */
+
+/* --- ANIMATED LIST SHAPES / CARDS --- */
+.notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.note-card {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-left: 4px solid #00ff87;
+    padding: 18px 22px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: #f8fafc;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Initial state for entrance animation */
+    opacity: 0;
+    transform: translateY(25px);
+    animation: slideUpFade 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.note-card.special-card {
+    border-left-color: #00c6ff;
+}
+
+.note-card:hover {
+    transform: translateX(6px) scale(1.01);
+    background: rgba(20, 30, 54, 0.8);
+    border-left-color: #00c6ff;
+    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.1);
+}
+
+.note-card.special-card:hover {
+    border-left-color: #00ff87;
+}
+
+.card-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(248, 250, 252, 0.3);
+    min-width: 25px;
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.note-card:hover .card-number {
+    color: #00ff87;
+}
+
+.note-card.special-card:hover .card-number {
+    color: #00c6ff;
+}
+
+.card-info h3 {
+    font-size: 0.98rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.note-card:hover h3 {
+    color: #fff;
+}
+
+/* Note Card එක ඇතුළේ තියන Arrow Icon එකට අදාළ Styles */
+.note-card .arrow-icon {
+    color: #475569;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.note-card:hover .arrow-icon {
+    color: #00f2fe;
+    transform: translateX(4px);
+}
+
+/* ==================================================== */
+/* --- RESPONSIVE GRID FOR THEORY NOTES (PC / LAPTOP) -- */
+/* ==================================================== */
+@media (min-width: 768px) {
+    .notes-list {
+        display: grid;
+        /* Screen එක ලොකු වෙද්දී Note Cards පේළියට 2 හෝ 3 බැගින් ලස්සනට සකස් වේ */
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); 
+        gap: 16px;
+    }
+}
+
+/* ==================================================== */
+/* --- ICT PRACTICALS PAGE SPECIFIC STYLES ---         */
+/* ==================================================== */
+
+/* --- LARGE PRACTICAL SHAPES / CARDS GRID --- */
+.practicals-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.practical-card {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.3));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 5px solid #00ff87;
+    padding: 30px 25px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Alternate left border color for dynamic look */
+.practical-card:nth-child(even) {
+    border-left-color: #00c6ff;
+}
+
+.practical-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 242, 254, 0.03), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.practical-card:hover::before {
+    opacity: 1;
+}
+
+.practical-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(0, 242, 254, 0.35);
+    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.15);
+}
+
+.practical-card-icon {
+    width: 55px;
+    height: 55px;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00ff87;
+    transition: all 0.3s ease;
+}
+
+.practical-card:nth-child(even) .practical-card-icon {
+    color: #00c6ff;
+}
+
+.practical-card:hover .practical-card-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: rgba(0, 242, 254, 0.1);
+    border-color: rgba(0, 242, 254, 0.4);
+}
+
+.practical-card-info h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 6px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.practical-card:hover .practical-card-info h3 {
+    background: linear-gradient(90deg, #00c6ff, #00ff87);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.practical-card-info p {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+/* Arrow indicator on hover */
+.card-arrow {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    color: #475569;
+    transition: all 0.3s ease;
+}
+
+.practical-card:hover .card-arrow {
+    color: #00ff87;
+    transform: translateX(5px);
+}
+
+/* ==================================================== */
+/* --- RESPONSIVE MEDIA QUERY FOR PRACTICALS (PC) ---  */
+/* ==================================================== */
+@media (min-width: 768px) {
+    /* PC Screen වලදී cards 4 ලස්සනට Grid එකකට බෙදීමට */
+    .practicals-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 25px;
+    }
+    
+    .practical-card {
+        padding: 35px 30px;
+    }
+}

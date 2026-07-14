@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+    <title>Home | A/L ICT</title>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (urlParams.get('visited') === 'true') {
+            sessionStorage.setItem('welcomeShown', 'true');
+        }
+        
+        if (!sessionStorage.getItem('welcomeShown')) {
+            window.location.href = 'open.html';
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #060a12; 
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* --- NAVBAR HEADER --- */
+        header {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            margin-bottom: 20px;
+            transition: max-width 0.4s ease;
+        }
+
+        .nav-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00f2fe;
+            background: rgba(30, 41, 59, 0.3);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.05);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* --- MAIN HERO BANNER --- */
+        .hero-banner {
+            width: 100%;
+            max-width: 600px;
+            height: 180px; 
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 135, 0.3);
+            box-shadow: 0 0 25px rgba(0, 255, 135, 0.15);
+            margin-bottom: 35px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .hero-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 255, 135, 0.25);
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover; 
+            object-position: center; 
+        }
+
+        /* --- MAIN CONTENT CONTAINER --- */
+        .content-wrapper {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            transition: max-width 0.4s ease;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00c6ff;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- ICT INFO SHAPES / CARDS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .info-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00ff87;
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-card:hover {
+            transform: translateX(5px);
+            background: rgba(15, 23, 42, 0.8);
+            border-left-color: #00c6ff;
+        }
+
+        .card-img-placeholder {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-text h3 {
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .card-text p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* --- FEATURES (NOTES & PRACTICALS) --- */
+        .features-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .feature-box {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-box:hover {
+            transform: scale(1.03);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 12px 24px rgba(0, 242, 254, 0.1);
+        }
+
+        .feature-box .feature-icon {
+            width: 45px;
+            height: 45px;
+            color: #00ff87;
+        }
+
+        .feature-box.practical-box .feature-icon {
+            color: #00c6ff;
+        }
+
+        .feature-box h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .feature-box p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        /* --- FOOTER COPYRIGHT --- */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            letter-spacing: 0.8px;
+            padding-bottom: 20px;
+        }
+
+        footer .cr-text {
+            color: #475569;
+            text-transform: lowercase;
+        }
+
+        footer .al-text {
+            font-weight: 600;
+            background: linear-gradient(90deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- MENU OVERLAY & SIDEBAR --- */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 14, 0.4);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 290px;
+            height: 100vh;
+            background: rgba(11, 19, 32, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 1px solid rgba(0, 242, 254, 0.25);
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(239, 68, 68, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .close-icon:hover {
+            transform: scale(1.08) rotate(90deg);
+            background: rgba(239, 68, 68, 0.2);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+            color: #475569;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(30, 41, 59, 0.5);
+            color: #fff;
+            border-color: rgba(0, 255, 135, 0.25);
+            transform: translateX(6px);
+        }
+
+        .menu-item:hover svg {
+            color: #00ff87;
+            transform: scale(1.1);
+        }
+
+        .menu-item.active-link {
+            background: rgba(0, 198, 255, 0.1);
+            color: #00c6ff;
+            border-color: rgba(0, 198, 255, 0.3);
+        }
+
+        .menu-item.active-link svg {
+            color: #00c6ff;
+        }
+
+        /* ==================================================== */
+        /* --- UPDATED RESPONSIVE MEDIA QUERY FOR PC/LAPTOP --- */
+        /* ==================================================== */
+        @media (min-width: 768px) {
+            header, .content-wrapper {
+                max-width: 1000px; 
+            }
+
+            .hero-banner {
+                max-width: 1000px;
+                height: 230px; /* Laptop/Desktop වලදී Banner එකේ උස සීමා කලා */
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 20px;
+            }
+
+            .info-card {
+                flex-direction: column; 
+                text-align: center;
+                padding: 25px 20px;
+                border-left: none;
+                border-bottom: 4px solid #00ff87; 
+            }
+
+            .info-card:hover {
+                transform: translateY(-5px); 
+                border-bottom-color: #00c6ff;
+            }
+
+            .features-container {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">NAVIGATION</div>
+            <div class="close-icon" id="closeMenu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="index.html" class="menu-item active-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home Hub
+            </a>
+            <a href="tn.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Theory Notes
+            </a>
+            <a href="p.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                ICT Practicals
+            </a>
+            <a href="base.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Base Converter & belittling
+            </a>
+            <a href="ab.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                About developer
+            </a>
+        </nav>
+    </div>
+
+    <header>
+        <div class="nav-icon" onclick="window.location.href='index.html'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+        </div>
+        <div class="header-title">A/L ICT</div>
+        <div class="nav-icon" id="menuToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+        </div>
+    </header>
+
+    <div class="hero-banner">
+        <img src="im1.png" alt="A/L ICT Main Banner">
+    </div>
+
+    <div class="content-wrapper">
+        
+        <section>
+            <div class="section-title">
+                <span>⚡ Discover A/L ICT</span>
+            </div>
+            <div class="grid-container">
+                
+                <div class="info-card">
+                    <img src="im2.png" class="card-img-placeholder" alt="Icon">
+                    <div class="card-text">
+                        <h3>Innovative Concepts</h3>
+                        <p>Explore the architecture of modern hardware, complex networking models, and advanced database engineering configurations.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <img src="im3.png" class="card-img-placeholder" alt="Icon">
+                    <div class="card-text">
+                        <h3>Algorithmic Logic</h3>
+                        <p>Master problem-solving tracks utilizing system flowcharts, structured pseudo-codes, and efficient programming logic solutions.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <img src="im4.png" class="card-img-placeholder" alt="Icon">
+                    <div class="card-text">
+                        <h3>Future Tech Ecosystems</h3>
+                        <p>Dive deep into emerging internet technologies, web deployment environments, and structural cyber security matrices.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">
+                <span>📂 Educational Hub</span>
+            </div>
+            <div class="features-container">
+                
+                <a href="tn.html" class="feature-box">
+                    <svg class="feature-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <h4>Comprehensive Notes</h4>
+                    <p>Syllabus modules & guides</p>
+                </a>
+
+                <a href="p.html" class="feature-box practical-box">
+                    <svg class="feature-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h4>Hands-on Practicals</h4>
+                    <p>Interactive lab tasks & converters</p>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p class="cr-text">@copyright - sandaru malisha</p>
+        <p class="al-text">A/L ICT 2028</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        const hideMenuHub = () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        closeMenu.addEventListener('click', hideMenuHub);
+        menuOverlay.addEventListener('click', hideMenuHub);
+    </script>
+
+</body>
+</html>

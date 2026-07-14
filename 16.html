@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+    <title>Hexadecimal Calculator | A/L ICT</title>
+
+</head>
+<body>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">NAVIGATION</div>
+            <div class="close-icon" id="closeMenu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="index.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home Hub
+            </a>
+            <a href="tn.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Theory Notes
+            </a>
+            <a href="p.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                ICT Practicals
+            </a>
+            <a href="16.html" class="menu-item active-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Hexadecimal Calculator
+            </a>
+          <a href="ab.html" class="menu-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    About developer
+</a>
+
+            </a>
+        </nav>
+    </div>
+
+    <header>
+        <div class="nav-icon" onclick="window.location.href='index.html'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </div>
+        <div class="header-title">A/L ICT</div>
+        <div class="nav-icon" id="menuToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+        </div>
+    </header>
+
+    <div class="calculator-card" id="calcContainer">
+        <h2>Hexadecimal Calculator</h2>
+
+        <div class="calc-workspace">
+            <div class="calc-interactive-block">
+                <div class="display-container">
+                    <span class="base-badge">HEX (Base 16)</span>
+                    <div class="expression-screen" id="expressionView"></div>
+                    <div class="result-screen" id="resultView">0</div>
+                </div>
+
+                <div class="calc-grid">
+                    <button class="calc-btn btn-clear" data-action="clear">AC</button>
+                    <button class="calc-btn btn-op" data-char="+">+</button>
+                    <button class="calc-btn btn-op" data-char="-">-</button>
+                    
+                    <button class="calc-btn btn-num" data-char="0">0</button>
+                    <button class="calc-btn btn-num" data-char="1">1</button>
+                    <button class="calc-btn btn-num" data-char="2">2</button>
+                    <button class="calc-btn btn-num" data-char="3">3</button>
+                    <button class="calc-btn btn-num" data-char="4">4</button>
+                    
+                    <button class="calc-btn btn-num" data-char="5">5</button>
+                    <button class="calc-btn btn-num" data-char="6">6</button>
+                    <button class="calc-btn btn-num" data-char="7">7</button>
+                    <button class="calc-btn btn-num" data-char="8">8</button>
+                    <button class="calc-btn btn-num" data-char="9">9</button>
+                    
+                    <button class="calc-btn btn-alpha" data-char="A">A</button>
+                    <button class="calc-btn btn-alpha" data-char="B">B</button>
+                    <button class="calc-btn btn-alpha" data-char="C">C</button>
+                    <button class="calc-btn btn-alpha" data-char="D">D</button>
+                    <button class="calc-btn btn-alpha" data-char="E">E</button>
+
+                    <button class="calc-btn btn-alpha" data-char="F">F</button>
+                    <button class="calc-btn btn-equals" data-action="evaluate">=</button>
+                </div>
+            </div>
+
+            <div class="working-accordion">
+                <button class="accordion-header" id="accordionToggle">
+                    Working Breakdown <span class="arrow-icon" id="arrowIcon">▼</span>
+                </button>
+                <div class="steps-container" id="stepsPanel">
+                    <div class="steps-content" id="stepsBox">
+                        Input hex equations (e.g., ACD8+9BEF) and click '=' to generate the textbook logic sequence trace matrix.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="cr-text">@copyright - sandaru malisha</p>
+        <p class="al-text">A/L ICT 2028</p>
+    </footer>
+
+    <script>
+        // --- SIDEBAR DRAWER INTERFACES ---
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        const hideMenuHub = () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        closeMenu.addEventListener('click', hideMenuHub);
+        menuOverlay.addEventListener('click', hideMenuHub);
+
+        // --- ACCORDION TOGGLE MECHANICS ---
+        const accordionToggle = document.getElementById('accordionToggle');
+        const stepsPanel = document.getElementById('stepsPanel');
+        const arrowIcon = document.getElementById('arrowIcon');
+
+        accordionToggle.addEventListener('click', () => {
+            if (window.innerWidth < 992) {
+                toggleAccordion();
+            }
+        });
+
+        function toggleAccordion(forceOpen = false) {
+            // PC එකේදී accordion එක collapse වීම වැළැක්වීම
+            if (window.innerWidth >= 992) {
+                stepsPanel.classList.add('open');
+                stepsPanel.style.maxHeight = "none";
+                return;
+            }
+
+            if (stepsPanel.classList.contains('open') && !forceOpen) {
+                stepsPanel.classList.remove('open');
+                stepsPanel.style.maxHeight = null;
+                arrowIcon.textContent = "▼";
+            } else {
+                stepsPanel.classList.add('open');
+                stepsPanel.style.maxHeight = stepsPanel.scrollHeight + "px";
+                arrowIcon.textContent = "▲";
+            }
+        }
+
+        // --- HEXADECIMAL MULTI-CHAIN COMPUTATIONAL ENGINE ---
+        const expressionView = document.getElementById('expressionView');
+        const resultView = document.getElementById('resultView');
+        const stepsBox = document.getElementById('stepsBox');
+        const calcContainer = document.getElementById('calcContainer');
+
+        let currentInputString = "";
+        let isEvaluatedState = false;
+
+        document.querySelectorAll('.calc-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const char = button.getAttribute('data-char');
+                const action = button.getAttribute('data-action');
+                
+                if (char) handleCharacterInput(char);
+                if (action === 'clear') resetCalculator();
+                if (action === 'evaluate') processCalculation();
+            });
+        });
+
+        function handleCharacterInput(char) {
+            const operators = ['+', '-'];
+            
+            if (isEvaluatedState) {
+                if (operators.includes(char)) {
+                    currentInputString = resultView.textContent + char;
+                } else {
+                    currentInputString = char;
+                }
+                isEvaluatedState = false;
+            } else {
+                if (operators.includes(char) && operators.includes(currentInputString.slice(-1))) {
+                    currentInputString = currentInputString.slice(0, -1) + char;
+                } else {
+                    currentInputString += char;
+                }
+            }
+            resultView.textContent = currentInputString || "0";
+            expressionView.textContent = ""; 
+        }
+
+        function resetCalculator() {
+            currentInputString = "";
+            isEvaluatedState = false;
+            resultView.textContent = "0";
+            expressionView.textContent = "";
+            stepsBox.innerHTML = "Input hex equations (e.g., ACD8+9BEF) and click '=' to generate the textbook logic sequence trace matrix.";
+            if (stepsPanel.classList.contains('open') && window.innerWidth < 992) {
+                stepsPanel.style.maxHeight = stepsPanel.scrollHeight + "px";
+            }
+        }
+
+        function processCalculation() {
+            if (!currentInputString) return;
+
+            if (['+', '-'].includes(currentInputString.slice(-1))) {
+                currentInputString = currentInputString.slice(0, -1);
+            }
+
+            try {
+                let tokens = currentInputString.match(/([0-9A-Fa-f]+)|([\+\-])/g);
+                if (!tokens || tokens.length < 3) throw new Error("Syntax Error: Complete operation required");
+
+                let htmlFinalTrace = "";
+                let currentAccumulatorValue = tokens[0].toUpperCase();
+
+                for (let i = 1; i < tokens.length; i += 2) {
+                    let operator = tokens[i];
+                    let nextOperand = tokens[i+1].toUpperCase();
+                    
+                    if (!nextOperand) break;
+
+                    let stepTrace = generateHexEvaluationTrace(currentAccumulatorValue, nextOperand, operator, (i + 1) / 2);
+                    htmlFinalTrace += stepTrace.html;
+                    currentAccumulatorValue = stepTrace.result;
+                    
+                    if (i + 2 < tokens.length) {
+                        htmlFinalTrace += `<div class="step-divider"></div>`;
+                    }
+                }
+
+                expressionView.textContent = currentInputString.toUpperCase();
+                resultView.textContent = currentAccumulatorValue;
+                stepsBox.innerHTML = htmlFinalTrace;
+
+                isEvaluatedState = true;
+                toggleAccordion(true);
+
+            } catch (err) {
+                calcContainer.classList.add('invalid-flash');
+                resultView.style.color = '#ef4444';
+                resultView.textContent = "Error";
+                stepsBox.innerHTML = `<span style="color: #ef4444; font-weight: bold;">[Computation Fault Traceback]</span><br><br>➔ Sequence aborted. Reason: ${err.message}.`;
+                
+                setTimeout(() => { calcContainer.classList.remove('invalid-flash'); }, 4000);
+                setTimeout(() => { resultView.style.color = '#fff'; resetCalculator(); }, 1500);
+            }
+        }
+
+        function generateHexEvaluationTrace(op1Str, op2Str, operator, stepNumber) {
+            let dec1 = parseInt(op1Str, 16);
+            let dec2 = parseInt(op2Str, 16);
+            let resultDec = 0;
+
+            if (operator === '+') resultDec = dec1 + dec2;
+            if (operator === '-') {
+                resultDec = dec1 - dec2;
+                if (resultDec < 0) throw new Error("Negative Hexadecimal Outputs Unhandled");
+            }
+
+            let resultHexStr = resultDec.toString(16).toUpperCase();
+            let maxLength = Math.max(op1Str.length, op2Str.length, resultHexStr.length);
+            
+            let paddedOp1 = op1Str.padStart(maxLength, '0');
+            let paddedOp2 = op2Str.padStart(maxLength, '0');
+            let paddedRes = resultHexStr.padStart(maxLength, '0');
+
+            let html = `<span style="color: #00ff87; font-weight: bold;">[Step ${stepNumber}: Evaluation Trace for ${op1Str} ${operator} ${op2Str}]</span><br><br>`;
+            
+            let colPlaceValues = [];
+            let colPowers = [];
+            let carryRow = Array(maxLength).fill(0);
+            let intermediateSumRow = Array(maxLength).fill(0); 
+            let subLogicNotes = [];
+            let bubbleRow = Array(maxLength).fill(false); 
+
+            if (operator === '+') {
+                let currentCarry = 0;
+                for (let i = maxLength - 1; i >= 0; i--) {
+                    let idx = maxLength - 1 - i;
+                    colPlaceValues.unshift(Math.pow(16, idx));
+                    colPowers.unshift(`16<sup>${idx}</sup>`);
+
+                    let bit1 = parseInt(paddedOp1[i], 16) || 0;
+                    let bit2 = parseInt(paddedOp2[i], 16) || 0;
+                    let colSum = bit1 + bit2 + currentCarry;
+                    intermediateSumRow[i] = colSum;
+
+                    let hexChar1 = paddedOp1[i];
+                    let hexChar2 = paddedOp2[i];
+
+                    if (colSum >= 16) {
+                        let nextCarry = Math.floor(colSum / 16);
+                        if (i > 0) carryRow[i - 1] = nextCarry;
+                        bubbleRow[i] = true;
+                        subLogicNotes.unshift(`Column ${idx} (16<sup>${idx}</sup>): ${hexChar1}(${bit1}) + ${hexChar2}(${bit2}) ${currentCarry ? '+ ' + currentCarry + ' (carry)' : ''} = ${colSum} ➔ <span class="badge-sub">-16</span> ➔ Keeps ${colSum % 16} (${(colSum % 16).toString(16).toUpperCase()}), Carries ${nextCarry}`);
+                        currentCarry = nextCarry;
+                    } else {
+                        subLogicNotes.unshift(`Column ${idx} (16<sup>${idx}</sup>): ${hexChar1}(${bit1}) + ${hexChar2}(${bit2}) ${currentCarry ? '+ ' + currentCarry + ' (carry)' : ''} = ${colSum} ➔ Keeps ${colSum} (${colSum.toString(16).toUpperCase()})`);
+                        currentCarry = 0;
+                    }
+                }
+            } else {
+                let borrow = 0;
+                for (let i = maxLength - 1; i >= 0; i--) {
+                    let idx = maxLength - 1 - i;
+                    colPlaceValues.unshift(Math.pow(16, idx));
+                    colPowers.unshift(`16<sup>${idx}</sup>`);
+
+                    let bit1 = parseInt(paddedOp1[i], 16) - borrow;
+                    let bit2 = parseInt(paddedOp2[i], 16);
+
+                    let hexChar1 = paddedOp1[i];
+                    let hexChar2 = paddedOp2[i];
+
+                    if (bit1 < bit2) {
+                        subLogicNotes.unshift(`Column ${idx} (16<sup>${idx}</sup>): Borrow 16 from left column ➔ (16 + ${bit1 + borrow}) - ${bit2} = ${(16 + bit1) - bit2} (${((16 + bit1) - bit2).toString(16).toUpperCase()})`);
+                        borrow = 1;
+                    } else {
+                        subLogicNotes.unshift(`Column ${idx} (16<sup>${idx}</sup>): ${hexChar1}(${bit1}) - ${hexChar2}(${bit2}) = ${bit1 - bit2} (${(bit1 - bit2).toString(16).toUpperCase()})`);
+                        borrow = 0;
+                    }
+                }
+            }
+
+            html += `<table class="trace-table">`;
+            html += `<tr><td></td>`;
+            colPlaceValues.forEach(v => html += `<td style="color: #64748b; font-size:0.8rem;">${v}</td>`);
+            html += `</tr>`;
+
+            html += `<tr style="color: #00c6ff; font-weight: bold;"><td></td>`;
+            colPowers.forEach(p => html += `<td>${p}</td>`);
+            html += `</tr>`;
+
+            if (operator === '+') {
+                html += `<tr style="color: #ff6b6b; font-size: 0.85rem;"><td style="text-align:left; color:#475569;">Carry:</td>`;
+                carryRow.forEach(c => html += `<td>${c ? c : ''}</td>`);
+                html += `</tr>`;
+            }
+
+            html += `<tr><td style="text-align:left; color:#64748b;">Value 1:</td>`;
+            for(let b of paddedOp1) html += `<td>${b}</td>`;
+            html += `</tr>`;
+
+            html += `<tr><td style="text-align:left; color:#00ff87;">${operator} Value 2:</td>`;
+            for(let b of paddedOp2) html += `<td>${b}</td>`;
+            html += `</tr>`;
+
+            if (operator === '+') {
+                html += `<tr class="row-line"><td style="text-align:left; color:#64748b; font-size:0.8rem;">Sum:</td>`;
+                for(let i = 0; i < maxLength; i++) {
+                    html += `<td style="font-size:0.85rem; color:#cbd5e1;">${intermediateSumRow[i]}</td>`;
+                }
+                html += `</tr>`;
+
+                html += `<tr><td></td>`;
+                for(let i = 0; i < maxLength; i++) {
+                    html += `<td>${bubbleRow[i] ? '<span class="bubble-minus-sixteen">-16</span>' : ''}</td>`;
+                }
+                html += `</tr>`;
+            } else {
+                html += `<tr class="row-line"><td></td>`;
+                for(let i = 0; i < maxLength; i++) html += `<td></td>`;
+                html += `</tr>`;
+            }
+
+            html += `<tr class="row-double-line" style="font-weight:bold; color:#00ff87; font-size:1.1rem;"><td style="text-align:left;">Output:</td>`;
+            for(let b of paddedRes) html += `<td>${b}</td>`;
+            html += `</tr>`;
+            html += `</table><br>`;
+
+            html += `<span style="color: #64748b; font-weight: bold;">Step Logic Breakdown:</span><br>`;
+            html += subLogicNotes.join('<br>') + `<br><br>`;
+            html += `Step Evaluation Result: <strong>${resultHexStr}<sub>16</sub> (Decimal: ${resultDec}<sub>10</sub>)</strong><br>`;
+
+            return {
+                html: html,
+                result: resultHexStr
+            };
+        }
+
+        // Initialize display behavior on load based on screen size
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 992) {
+                stepsPanel.style.maxHeight = "none";
+            } else if (!stepsPanel.classList.contains('open')) {
+                stepsPanel.style.maxHeight = null;
+            }
+        });
+        if (window.innerWidth >= 992) {
+            stepsPanel.classList.add('open');
+            stepsPanel.style.maxHeight = "none";
+        }
+    </script>
+</body>
+</html>

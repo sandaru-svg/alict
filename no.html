@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Converter | A/L ICT</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #060a12; /* Deep dark theme from the home page */
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* --- NAVBAR HEADER --- */
+        header {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            margin-bottom: 20px;
+        }
+
+        .nav-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00f2fe;
+            background: rgba(30, 41, 59, 0.3);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.05);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* --- CONVERTER CARD LAYOUT --- */
+        .converter-card {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.1);
+            padding: 35px 25px;
+            border-radius: 24px;
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .converter-card h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Flex header for Label and Show Working Button */
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: #00c6ff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-steps {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-steps:hover {
+            color: #00ff87;
+        }
+
+        .arrow-icon {
+            font-size: 0.75rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid #1e293b;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus {
+            border-color: #00ff87;
+            box-shadow: 0 0 15px rgba(0, 255, 135, 0.2);
+            transform: scale(1.01);
+        }
+
+        .input-group:focus-within label {
+            color: #00ff87;
+        }
+
+        .input-group:focus-within .toggle-steps {
+            color: #00c6ff;
+        }
+
+        /* Base Indicator Badge */
+        .base-badge {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            background: #1e293b;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: #64748b;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus ~ .base-badge {
+            background: #00ff87;
+            color: #060a12;
+            font-weight: 600;
+        }
+
+        /* --- STEP BY STEP WORKINGS ACCORDION --- */
+        .steps-container {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(9, 15, 26, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.05);
+            border-radius: 12px;
+            margin-top: 10px;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .steps-container.open {
+            border-color: rgba(0, 242, 254, 0.15);
+        }
+
+        .steps-content {
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        /* Error Animation for Invalid Inputs */
+        .invalid {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2) !important;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* --- FOOTER COPYRIGHT --- */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            letter-spacing: 0.8px;
+            padding-bottom: 20px;
+        }
+
+        footer .cr-text {
+            color: #475569;
+            text-transform: lowercase;
+        }
+
+        footer .al-text {
+            font-weight: 600;
+            background: linear-gradient(90deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- DYNAMIC SIDEBAR MENU & BLUR OVERLAY --- */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 14, 0.4);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 290px;
+            height: 100vh;
+            background: rgba(11, 19, 32, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 1px solid rgba(0, 242, 254, 0.25);
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(239, 68, 68, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .close-icon:hover {
+            transform: scale(1.08) rotate(90deg);
+            background: rgba(239, 68, 68, 0.2);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+            color: #475569;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(30, 41, 59, 0.5);
+            color: #fff;
+            border-color: rgba(0, 255, 135, 0.25);
+            transform: translateX(6px);
+        }
+
+        .menu-item:hover svg {
+            color: #00ff87;
+            transform: scale(1.1);
+        }
+
+        .menu-item.active-link {
+            background: rgba(0, 198, 255, 0.1);
+            color: #00c6ff;
+            border-color: rgba(0, 198, 255, 0.3);
+        }
+
+        .menu-item.active-link svg {
+            color: #00c6ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">NAVIGATION</div>
+            <div class="close-icon" id="closeMenu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="index.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home Hub
+            </a>
+            <a href="tn.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Theory Notes
+            </a>
+            <a href="p.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                ICT Practicals
+            </a>
+            <a href="converter.html" class="menu-item active-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Base Converter
+            </a>
+            <a href="ab.html" class="menu-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    About developer
+</a>
+
+        </nav>
+    </div>
+
+    <header>
+        <div class="nav-icon" onclick="window.location.href='index.html'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </div>
+        <div class="header-title">A/L ICT</div>
+        <div class="nav-icon" id="menuToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+        </div>
+    </header>
+
+    <div class="converter-card">
+        <h2>Number Base Converter</h2>
+
+        <div class="input-group">
+            <div class="input-header">
+                <label for="decimal">1. Decimal</label>
+                <button class="toggle-steps" data-target="decimal-steps">
+                    Show Working <span class="arrow-icon">▼</span>
+                </button>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="decimal" placeholder="Enter Decimal Number" autocomplete="off">
+                <span class="base-badge">Base 10</span>
+            </div>
+            <div class="steps-container" id="decimal-steps">
+                <div class="steps-content">Enter a number to view step-by-step conversion logic.</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-header">
+                <label for="binary">2. Binary</label>
+                <button class="toggle-steps" data-target="binary-steps">
+                    Show Working <span class="arrow-icon">▼</span>
+                </button>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="binary" placeholder="Enter Binary Number" autocomplete="off">
+                <span class="base-badge">Base 2</span>
+            </div>
+            <div class="steps-container" id="binary-steps">
+                <div class="steps-content">Enter a number to view step-by-step conversion logic.</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-header">
+                <label for="octal">3. Octal</label>
+                <button class="toggle-steps" data-target="octal-steps">
+                    Show Working <span class="arrow-icon">▼</span>
+                </button>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="octal" placeholder="Enter Octal Number" autocomplete="off">
+                <span class="base-badge">Base 8</span>
+            </div>
+            <div class="steps-container" id="octal-steps">
+                <div class="steps-content">Enter a number to view step-by-step conversion logic.</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-header">
+                <label for="hex">4. Hexadecimal</label>
+                <button class="toggle-steps" data-target="hex-steps">
+                    Show Working <span class="arrow-icon">▼</span>
+                </button>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="hex" placeholder="Enter Hexadecimal Number" autocomplete="off">
+                <span class="base-badge">Base 16</span>
+            </div>
+            <div class="steps-container" id="hex-steps">
+                <div class="steps-content">Enter a number to view step-by-step conversion logic.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="cr-text">@copyright - sandaru malisha</p>
+        <p class="al-text">A/L ICT 2028</p>
+    </footer>
+
+    <script>
+        // Sidebar Navigation Toggles
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        const hideMenuHub = () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        closeMenu.addEventListener('click', hideMenuHub);
+        menuOverlay.addEventListener('click', hideMenuHub);
+
+        // Accordion Animation Logic
+        document.querySelectorAll('.toggle-steps').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const container = document.getElementById(targetId);
+                const arrow = btn.querySelector('.arrow-icon');
+                
+                if (container.classList.contains('open')) {
+                    container.classList.remove('open');
+                    container.style.maxHeight = null;
+                    arrow.textContent = "▼";
+                } else {
+                    container.classList.add('open');
+                    container.style.maxHeight = container.scrollHeight + "px";
+                    arrow.textContent = "▲";
+                }
+            });
+        });
+
+        // Live Base Conversion Computation
+        const decInput = document.getElementById('decimal');
+        const binInput = document.getElementById('binary');
+        const octInput = document.getElementById('octal');
+        const hexInput = document.getElementById('hex');
+
+        const validators = {
+            10: /^[0-9]*$/,
+            2: /^[0-1]*$/,
+            8: /^[0-7]*$/,
+            16: /^[0-9a-fA-F]*$/
+        };
+
+        function convertValues(sourceInput, base) {
+            let value = sourceInput.value.trim();
+
+            if (value === "") {
+                clearAll();
+                removeErrorStyles();
+                updateAllSteps(null);
+                return;
+            }
+
+            if (!validators[base].test(value)) {
+                sourceInput.classList.add('invalid');
+                clearOthers(sourceInput);
+                updateAllSteps(null);
+                return;
+            } else {
+                sourceInput.classList.remove('invalid');
+            }
+
+            let decimalValue = parseInt(value, base);
+            if (isNaN(decimalValue)) return;
+
+            if (sourceInput !== decInput) decInput.value = decimalValue.toString(10);
+            if (sourceInput !== binInput) binInput.value = decimalValue.toString(2);
+            if (sourceInput !== octInput) octInput.value = decimalValue.toString(8);
+            if (sourceInput !== hexInput) hexInput.value = decimalValue.toString(16).toUpperCase();
+
+            updateAllSteps(decimalValue);
+        }
+
+        function clearAll() {
+            decInput.value = "";
+            binInput.value = "";
+            octInput.value = "";
+            hexInput.value = "";
+        }
+
+        function clearOthers(current) {
+            if (current !== decInput) decInput.value = "";
+            if (current !== binInput) binInput.value = "";
+            if (current !== octInput) octInput.value = "";
+            if (current !== hexInput) hexInput.value = "";
+        }
+
+        function removeErrorStyles() {
+            [decInput, binInput, octInput, hexInput].forEach(input => input.classList.remove('invalid'));
+        }
+
+        // --- WORKING STEPS GENERATOR ARRAYS ---
+        function updateAllSteps(dec) {
+            const decBox = document.getElementById('decimal-steps').querySelector('.steps-content');
+            const binBox = document.getElementById('binary-steps').querySelector('.steps-content');
+            const octBox = document.getElementById('octal-steps').querySelector('.steps-content');
+            const hexBox = document.getElementById('hex-steps').querySelector('.steps-content');
+
+            if (dec === null || isNaN(dec)) {
+                const standardMsg = "Enter a valid number to view step-by-step conversion logic.";
+                decBox.innerHTML = standardMsg;
+                binBox.innerHTML = standardMsg;
+                octBox.innerHTML = standardMsg;
+                hexBox.innerHTML = standardMsg;
+            } else {
+                decBox.innerHTML = generateDecimalSteps(dec);
+                binBox.innerHTML = generateBinarySteps(dec);
+                octBox.innerHTML = generateOctalSteps(dec);
+                hexBox.innerHTML = generateHexSteps(dec);
+            }
+
+            // Realtime dynamic expansion adjustment for opened windows
+            document.querySelectorAll('.steps-container.open').forEach(container => {
+                container.style.maxHeight = container.scrollHeight + "px";
+            });
+        }
+
+        function generateDecimalSteps(dec) {
+            let str = dec.toString();
+            let out = `<span style="color: #00ff87; font-weight: bold;">[Decimal Base 10 Positional System Analysis]</span><br><br>`;
+            let expr = [];
+            let expansion = [];
+            for (let i = 0; i < str.length; i++) {
+                let p = str.length - 1 - i;
+                expr.push(`(${str[i]} × 10<sup>${p}</sup>)`);
+                expansion.push(parseInt(str[i]) * Math.pow(10, p));
+            }
+            out += `Expansion Breakdown:<br>➔ ` + expr.join(' + ') + `<br>`;
+            out += `Calculated Weight:<br>➔ ` + expansion.join(' + ') + `<br>`;
+            out += `Final Summation: <strong>${dec}<sub>10}</strong>`;
+            return out;
+        }
+
+        function generateBinarySteps(dec) {
+            let out = `<span style="color: #00ff87; font-weight: bold;">[Decimal to Binary via Successive Division by 2]</span><br><br>`;
+            let temp = dec;
+            let divSteps = [];
+            let remainders = [];
+            
+            if (temp === 0) divSteps.push(`0 ÷ 2 = 0 | Remainder: 0`);
+            while (temp > 0) {
+                let q = Math.floor(temp / 2);
+                let r = temp % 2;
+                divSteps.push(`${temp.toString().padStart(4, ' ')} ÷ 2 = ${q.toString().padStart(4, ' ')} | Remainder: <strong style="color: #00c6ff">${r}</strong>`);
+                remainders.push(r);
+                temp = q;
+            }
+            out += divSteps.join('<br>') + `<br><br>`;
+            let finalBin = remainders.reverse().join('') || '0';
+            out += `Read remainders from bottom to top: <strong>${finalBin}<sub>2}</strong><br><br>`;
+
+            out += `<span style="color: #00ff87; font-weight: bold;">[Binary back to Decimal Verification]</span><br><br>`;
+            let checkExpr = [];
+            let weightSum = [];
+            for (let i = 0; i < finalBin.length; i++) {
+                let p = finalBin.length - 1 - i;
+                checkExpr.push(`(${finalBin[i]} × 2<sup>${p}</sup>)`);
+                weightSum.push(parseInt(finalBin[i]) * Math.pow(2, p));
+            }
+            out += `➔ ` + checkExpr.join(' + ') + `<br>`;
+            out += `➔ ` + weightSum.join(' + ') + ` = <strong>${dec}<sub>10}</strong>`;
+            return out;
+        }
+
+        function generateOctalSteps(dec) {
+            let out = `<span style="color: #00ff87; font-weight: bold;">[Decimal to Octal via Successive Division by 8]</span><br><br>`;
+            let temp = dec;
+            let divSteps = [];
+            let remainders = [];
+
+            if (temp === 0) divSteps.push(`0 ÷ 8 = 0 | Remainder: 0`);
+            while (temp > 0) {
+                let q = Math.floor(temp / 8);
+                let r = temp % 8;
+                divSteps.push(`${temp.toString().padStart(4, ' ')} ÷ 8 = ${q.toString().padStart(4, ' ')} | Remainder: <strong style="color: #00c6ff">${r}</strong>`);
+                remainders.push(r);
+                temp = q;
+            }
+            out += divSteps.join('<br>') + `<br><br>`;
+            let finalOct = remainders.reverse().join('') || '0';
+            out += `Read remainders from bottom to top: <strong>${finalOct}<sub>8}</strong><br><br>`;
+
+            out += `<span style="color: #00ff87; font-weight: bold;">[Octal back to Decimal Verification]</span><br><br>`;
+            let checkExpr = [];
+            let weightSum = [];
+            for (let i = 0; i < finalOct.length; i++) {
+                let p = finalOct.length - 1 - i;
+                checkExpr.push(`(${finalOct[i]} × 8<sup>${p}</sup>)`);
+                weightSum.push(parseInt(finalOct[i]) * Math.pow(8, p));
+            }
+            out += `➔ ` + checkExpr.join(' + ') + `<br>`;
+            out += `➔ ` + weightSum.join(' + ') + ` = <strong>${dec}<sub>10}</strong>`;
+            return out;
+        }
+
+        function generateHexSteps(dec) {
+            let out = `<span style="color: #00ff87; font-weight: bold;">[Decimal to Hexadecimal via Successive Division by 16]</span><br><br>`;
+            let temp = dec;
+            let divSteps = [];
+            let remainders = [];
+            const hexMapping = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'};
+
+            if (temp === 0) divSteps.push(`0 ÷ 16 = 0 | Remainder: 0`);
+            while (temp > 0) {
+                let q = Math.floor(temp / 16);
+                let r = temp % 16;
+                let displayRem = r >= 10 ? `${r} (${hexMapping[r]})` : `${r}`;
+                let hexChar = r >= 10 ? hexMapping[r] : `${r}`;
+                
+                divSteps.push(`${temp.toString().padStart(4, ' ')} ÷ 16 = ${q.toString().padStart(4, ' ')} | Remainder: <strong style="color: #00c6ff">${displayRem}</strong>`);
+                remainders.push(hexChar);
+                temp = q;
+            }
+            out += divSteps.join('<br>') + `<br><br>`;
+            let finalHex = remainders.reverse().join('') || '0';
+            out += `Read remainders from bottom to top: <strong>${finalHex}<sub>16}</strong><br><br>`;
+
+            out += `<span style="color: #00ff87; font-weight: bold;">[Hexadecimal back to Decimal Verification]</span><br><br>`;
+            let checkExpr = [];
+            let weightSum = [];
+            for (let i = 0; i < finalHex.length; i++) {
+                let p = finalHex.length - 1 - i;
+                let alphaToNum = parseInt(finalHex[i], 16);
+                checkExpr.push(`(${finalHex[i]} × 16<sup>${p}</sup>)`);
+                weightSum.push(alphaToNum * Math.pow(16, p));
+            }
+            out += `➔ ` + checkExpr.join(' + ') + `<br>`;
+            out += `➔ ` + weightSum.join(' + ') + ` = <strong>${dec}<sub>10}</strong>`;
+            return out;
+        }
+
+        decInput.addEventListener('input', () => convertValues(decInput, 10));
+        binInput.addEventListener('input', () => convertValues(binInput, 2));
+        octInput.addEventListener('input', () => convertValues(octInput, 8));
+        hexInput.addEventListener('input', () => convertValues(hexInput, 16));
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theory Notes | A/L ICT</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #060a12;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR HEADER --- */
+        header {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            margin-bottom: 20px;
+            transition: max-width 0.4s ease;
+        }
+
+        .nav-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00f2fe;
+            background: rgba(30, 41, 59, 0.3);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.05);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* --- MAIN CONTENT CONTAINER --- */
+        .content-wrapper {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            transition: max-width 0.4s ease;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00c6ff;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(0, 198, 255, 0.2);
+            padding-bottom: 8px;
+        }
+
+        /* --- ANIMATED LIST SHAPES / CARDS --- */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .note-card {
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-left: 4px solid #00ff87;
+            padding: 18px 22px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #f8fafc;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Initial state for entrance animation */
+            opacity: 0;
+            transform: translateY(25px);
+            animation: slideUpFade 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .note-card.special-card {
+            border-left-color: #00c6ff;
+        }
+
+        .note-card:hover {
+            transform: translateX(6px) scale(1.01);
+            background: rgba(20, 30, 54, 0.8);
+            border-left-color: #00c6ff;
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.1);
+        }
+        
+        .note-card.special-card:hover {
+            border-left-color: #00ff87;
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-number {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(248, 250, 252, 0.3);
+            min-width: 25px;
+            transition: color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .note-card:hover .card-number {
+            color: #00ff87;
+        }
+        
+        .note-card.special-card:hover .card-number {
+            color: #00c6ff;
+        }
+
+        .card-info h3 {
+            font-size: 0.98rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .note-card:hover h3 {
+            color: #fff;
+        }
+
+        .arrow-icon {
+            color: #475569;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .note-card:hover .arrow-icon {
+            color: #00f2fe;
+            transform: translateX(4px);
+        }
+
+        /* --- ENTRANCE ANIMATION KEYFRAMES --- */
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: auto;
+            padding-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            letter-spacing: 0.8px;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+
+        footer .cr-text {
+            color: #475569;
+            text-transform: lowercase;
+        }
+
+        footer .al-text {
+            font-weight: 600;
+            background: linear-gradient(90deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- DYNAMIC SIDEBAR & OVERLAY --- */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 14, 0.4);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 290px;
+            height: 100vh;
+            background: rgba(11, 19, 32, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 1px solid rgba(0, 242, 254, 0.25);
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(239, 68, 68, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .close-icon:hover {
+            transform: scale(1.08) rotate(90deg);
+            background: rgba(239, 68, 68, 0.2);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+            color: #475569;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(30, 41, 59, 0.5);
+            color: #fff;
+            border-color: rgba(0, 255, 135, 0.25);
+            transform: translateX(6px);
+        }
+
+        .menu-item:hover svg {
+            color: #00ff87;
+            transform: scale(1.1);
+        }
+
+        .menu-item.active-link {
+            background: rgba(0, 198, 255, 0.1);
+            color: #00c6ff;
+            border-color: rgba(0, 198, 255, 0.3);
+        }
+
+        .menu-item.active-link svg {
+            color: #00c6ff;
+        }
+
+        /* ==================================================== */
+        /* --- NEW RESPONSIVE MEDIA QUERY FOR PC/DESKTOP ---    */
+        /* ==================================================== */
+        @media (min-width: 768px) {
+            header, .content-wrapper {
+                max-width: 1050px; /* PC එකේදී Content එක ලස්සනට පැතිරෙන්න ඉඩ වැඩි කළා */
+            }
+
+            .notes-list {
+                display: grid;
+                /* Screen එක ලොකු වෙනකොට Auto-fit වෙන විදිහට පේළියට කාඩ් 2 හෝ 3 බැගින් සකස් වෙනවා */
+                grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); 
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">NAVIGATION</div>
+            <div class="close-icon" id="closeMenu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="index.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home Hub
+            </a>
+            <a href="tn.html" class="menu-item active-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Theory Notes
+            </a>
+            <a href="p.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                ICT Practicals
+            </a>
+            <a href="base.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Base Converter & belittling
+            </a>
+            <a href="ab.html" class="menu-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    About developer
+</a>
+
+        </nav>
+    </div>
+
+    <header>
+        <div class="nav-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+        </div>
+        <div class="header-title">Theory Notes</div>
+        <div class="nav-icon" id="menuToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <section>
+            <div class="section-title">
+                <span>📚 Lesson Notes</span>
+            </div>
+            
+            <div class="notes-list">
+                <a href="https://drive.google.com/file/d/1cHrEzytKgWdP2Xa5E2dOM_zm7fgxCMm0/view?usp=drivesdk" class="note-card" style="animation-delay: 0.05s;">
+                    <div class="card-info">
+                        <span class="card-number">01</span>
+                        <h3>Basic Concepts of ICT</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1R567GAAIajZ5P1da7DiSLhHBPvJCDdD7/view?usp=drivesdk" class="note-card" style="animation-delay: 0.1s;">
+                    <div class="card-info">
+                        <span class="card-number">02</span>
+                        <h3>Evolution of Computers</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1GdTwyZ19JfhkZh6M5Yx_ejyDfBb8ls9_/view?usp=drivesdk" class="note-card" style="animation-delay: 0.15s;">
+                    <div class="card-info">
+                        <span class="card-number">03</span>
+                        <h3>Number system</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/12IxZarAUaKMWD2b6oGBWvguXdcxARs0X/view?usp=drivesdk" class="note-card" style="animation-delay: 0.2s;">
+                    <div class="card-info">
+                        <span class="card-number">04</span>
+                        <h3>Logic Gates and Boolean Algebra</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1j_0-GooJ8Ml140HeINivGzEEpsfRkacH/view?usp=drivesdk" class="note-card" style="animation-delay: 0.25s;">
+                    <div class="card-info">
+                        <span class="card-number">05</span>
+                        <h3>Operating Systems</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/19w7o0aQHv_5hEBgp_H07P3e5o9kpbRj-/view?usp=drivesdk" class="note-card" style="animation-delay: 0.3s;">
+                    <div class="card-info">
+                        <span class="card-number">06</span>
+                        <h3>Data Communication and Networking</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="#" class="note-card" style="animation-delay: 0.35s;">
+                    <div class="card-info">
+                        <span class="card-number">07</span>
+                        <h3>System Analysis and Design</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1ehz9iefqDwC-T2ihXxoP1ZG0qlSN2CCC/view?usp=drivesdk" class="note-card" style="animation-delay: 0.4s;">
+                    <div class="card-info">
+                        <span class="card-number">08</span>
+                        <h3>Database Management Systems</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1rwSvJvClc_PfvohTGjf-MA9mPw8JJUCF/view?usp=drivesdk" class="note-card" style="animation-delay: 0.45s;">
+                    <div class="card-info">
+                        <span class="card-number">09</span>
+                        <h3>Programming (Python)</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1n_PKyMoIO4tlOthX07dh9yYstqFqU7sj/view?usp=drivesdk" class="note-card" style="animation-delay: 0.5s;">
+                    <div class="card-info">
+                        <span class="card-number">10</span>
+                        <h3>Web Development</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1lxWdOXspZzKgmPw07c4whAJQshusadbi/view?usp=drivesdk" class="note-card" style="animation-delay: 0.55s;">
+                    <div class="card-info">
+                        <span class="card-number">11</span>
+                        <h3>Internet of Things (IoT) Applications</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1qnY9sVj72aWiaWbCQqaCHrjHMK5XhDh-/view?usp=drivesdk" class="note-card" style="animation-delay: 0.6s;">
+                    <div class="card-info">
+                        <span class="card-number">12</span>
+                        <h3>ICT in Business</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1tzLhwoqyHdTFcYCApdYCSvF9C1xEK6fE/view?usp=drivesdk" class="note-card" style="animation-delay: 0.65s;">
+                    <div class="card-info">
+                        <span class="card-number">13</span>
+                        <h3>New Trends and Future Directions</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">
+                <span>✨ Special Notes</span>
+            </div>
+            
+            <div class="notes-list">
+                <a href="https://drive.google.com/file/d/1IX-5Tq85wi19arqw4iIfnfY3eGvRaaQB/view?usp=drivesdk" class="note-card special-card" style="animation-delay: 0.7s;">
+                    <div class="card-info">
+                        <span class="card-number">P1</span>
+                        <h3>A/L ICT P1</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1J2eOtkYEnem7GFMugxS4jTFy-MnltYZa/view?usp=drivesdk" class="note-card special-card" style="animation-delay: 0.75s;">
+                    <div class="card-info">
+                        <span class="card-number">P2</span>
+                        <h3>A/L ICT P2</h3>
+                    </div>
+                    <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p class="cr-text">@copyright - sandaru malisha</p>
+        <p class="al-text">A/L ICT 2028</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        const hideMenuHub = () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        closeMenu.addEventListener('click', hideMenuHub);
+        menuOverlay.addEventListener('click', hideMenuHub);
+    </script>
+
+</body>
+</html>

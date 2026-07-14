@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Hub | A/L ICT</title>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('visited') === 'true') {
+            sessionStorage.setItem('welcomeShown', 'true');
+        }
+        if (!sessionStorage.getItem('welcomeShown')) {
+            window.location.href = 'open.html';
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #060a12;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: clamp(15px, 4vw, 30px) 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR HEADER --- */
+        header {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            margin-bottom: clamp(15px, 3vh, 30px);
+            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00f2fe;
+            background: rgba(30, 41, 59, 0.3);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.05);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .header-title {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* --- MAIN CONTENT CONTAINER --- */
+        .content-wrapper {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 10px;
+            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- DYNAMIC ACTION CARDS --- */
+        .main-card {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-left: 4px solid #00c6ff;
+            border-radius: 24px;
+            padding: clamp(20px, 3vw, 28px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-card:hover {
+            background: rgba(15, 23, 42, 0.75);
+            border-left-color: #00ff87;
+            box-shadow: 0 15px 30px rgba(0, 255, 135, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .card-header-layout {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .card-icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: rgba(0, 198, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00c6ff;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .main-card:hover .card-icon-box {
+            color: #00ff87;
+            background: rgba(0, 255, 137, 0.1);
+            border-color: rgba(0, 255, 137, 0.2);
+        }
+
+        .card-main-text {
+            flex-grow: 1;
+        }
+
+        .card-main-text h3 {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .card-main-text p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        .chevron-icon {
+            margin-left: auto;
+            color: #64748b;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- EXPANDABLE ANIMATION MATRIX --- */
+        .dropdown-panel {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .main-card.expanded .chevron-icon {
+            transform: rotate(180deg);
+            color: #00ff87;
+        }
+
+        .main-card.expanded .dropdown-panel {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- SUB MENU ITEMS --- */
+        .sub-link-item {
+            background: rgba(30, 41, 59, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 16px 20px;
+            border-radius: 14px;
+            color: #94a3b8;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .sub-link-item:hover {
+            background: rgba(0, 242, 254, 0.08);
+            color: #fff;
+            border-color: rgba(0, 242, 254, 0.3);
+            transform: translateX(6px);
+        }
+
+        .sub-link-item svg {
+            color: #475569;
+            transition: all 0.25s ease;
+        }
+
+        .sub-link-item:hover svg {
+            color: #00c6ff;
+            transform: scale(1.1);
+        }
+
+        /* --- SIDEBAR & OVERLAY --- */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 14, 0.4);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 290px;
+            height: 100vh;
+            background: rgba(11, 19, 32, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 1px solid rgba(0, 242, 254, 0.25);
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(239, 68, 68, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .close-icon:hover {
+            transform: scale(1.08) rotate(90deg);
+            background: rgba(239, 68, 68, 0.2);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+            color: #475569;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(30, 41, 59, 0.5);
+            color: #fff;
+            border-color: rgba(0, 255, 135, 0.25);
+            transform: translateX(6px);
+        }
+
+        .menu-item:hover svg {
+            color: #00ff87;
+            transform: scale(1.1);
+        }
+
+        .menu-item.active-link {
+            background: rgba(0, 198, 255, 0.1);
+            color: #00c6ff;
+            border-color: rgba(0, 198, 255, 0.3);
+        }
+
+        .menu-item.active-link svg {
+            color: #00c6ff;
+        }
+
+        /* --- FOOTER COPYRIGHT --- */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            letter-spacing: 0.8px;
+            padding: 40px 0 10px 0;
+            width: 100%;
+        }
+
+        footer .cr-text {
+            color: #475569;
+            text-transform: lowercase;
+        }
+
+        footer .al-text {
+            font-weight: 600;
+            background: linear-gradient(90deg, #00c6ff, #00ff87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==================================================== */
+        /* --- OPTIMIZED RESPONSIVE MEDIA QUERY FOR PC/LAPTOP -- */
+        /* ==================================================== */
+        @media (min-width: 768px) {
+            header {
+                max-width: 850px; /* PC එකට ගැලපෙන පරිදි Header ලිහිල් කිරීම */
+            }
+
+            .content-wrapper {
+                max-width: 850px; /* Cards ඕනෑවට වඩා ඇදී නොයන පරිදි උපරිම පළල පාලනය කිරීම */
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* PC එකේදී කාඩ් දෙක Side-by-Side පිහිටයි */
+                gap: 25px;
+                align-items: start; /* එක් කාඩ්පතක් expand වන විට අනෙක විකෘති නොවේ */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">NAVIGATION</div>
+            <div class="close-icon" id="closeMenu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="index.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home Hub
+            </a>
+            <a href="tn.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Theory Notes
+            </a>
+            <a href="p.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                ICT Practicals
+            </a>
+            <a href="base.html" class="menu-item active-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Base Converter & Belittling
+            </a>
+<a href="ab.html" class="menu-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    About developer
+</a> 
+            </a>
+        </nav>
+    </div>
+
+    <header>
+        <div class="nav-icon" onclick="window.location.href='index.html'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </div>
+        <div class="header-title">A/L ICT</div>
+        <div class="nav-icon" id="menuToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <div class="main-card" onclick="window.location.href='no.html'">
+            <div class="card-header-layout">
+                <div class="card-icon-box">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <div class="card-main-text">
+                    <h3>Base Converter</h3>
+                    <p>Access the primary utility layout to instantly convert values across multiple number systems.</p>
+                </div>
+                <div class="chevron-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-card" id="belittlingCard">
+            <div class="card-header-layout">
+                <div class="card-icon-box">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                </div>
+                <div class="card-main-text">
+                    <h3>Base Belittling</h3>
+                    <p>Explore specific structural parameters and learn number configurations individually.</p>
+                </div>
+                <div class="chevron-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+
+            <div class="dropdown-panel" id="dropdownPanel">
+                <a href="10.html" class="sub-link-item">
+                    <span>Decimal</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+                <a href="2.html" class="sub-link-item">
+                    <span>Binary</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+                <a href="8.html" class="sub-link-item">
+                    <span>Octal</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+                <a href="16.html" class="sub-link-item">
+                    <span>Hexadecimal</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p class="cr-text">@copyright - sandaru malisha</p>
+        <p class="al-text">A/L ICT 2028</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const belittlingCard = document.getElementById('belittlingCard');
+        const dropdownPanel = document.getElementById('dropdownPanel');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        const hideMenuHub = () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        closeMenu.addEventListener('click', hideMenuHub);
+        menuOverlay.addEventListener('click', hideMenuHub);
+
+        belittlingCard.addEventListener('click', (e) => {
+            if (e.target.closest('.sub-link-item')) return;
+            belittlingCard.classList.toggle('expanded');
+        });
+    </script>
+
+</body>
+</html>

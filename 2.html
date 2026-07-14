@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+    <title>Binary Calculator | A/L ICT</title>
+</head>
+<body>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">NAVIGATION</div>
+            <div class="close-icon" id="closeMenu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="index.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home Hub
+            </a>
+            <a href="tn.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Theory Notes
+            </a>
+            <a href="p.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                ICT Practicals
+            </a>
+            <a href="2.html" class="menu-item active-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Binary Calculator
+            </a>
+<a href="ab.html" class="menu-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    About developer
+</a>
+
+            </a>
+        </nav>
+    </div>
+
+    <header>
+        <div class="nav-icon" onclick="window.location.href='index.html'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </div>
+        <div class="header-title">A/L ICT</div>
+        <div class="nav-icon" id="menuToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+        </div>
+    </header>
+
+    <div class="calculator-card" id="calcContainer">
+        <h2>Binary Calculator</h2>
+
+        <div class="display-container">
+            <span class="base-badge">BIN (Base 2)</span>
+            <div class="expression-screen" id="expressionView"></div>
+            <div class="result-screen" id="resultView">0</div>
+        </div>
+
+        <div class="calc-grid">
+            <button class="calc-btn btn-clear" data-action="clear">AC</button>
+            <button class="calc-btn btn-op" data-char="+">+</button>
+            <button class="calc-btn btn-op" data-char="-">-</button>
+            
+            <button class="calc-btn btn-binary-large" data-char="0">0</button>
+            <button class="calc-btn btn-binary-large" data-char="1">1</button>
+            
+            <button class="calc-btn btn-equals" data-action="evaluate">=</button>
+        </div>
+
+        <div class="working-accordion">
+            <button class="accordion-header" id="accordionToggle">
+                Show Working Breakdown <span class="arrow-icon" id="arrowIcon">▼</span>
+            </button>
+            <div class="steps-container" id="stepsPanel">
+                <div class="steps-content" id="stepsBox">
+                    Input binary equations (e.g., 1101+1011) and click '=' to generate the textbook logic sequence trace matrix.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="cr-text">@copyright - sandaru malisha</p>
+        <p class="al-text">A/L ICT 2028</p>
+    </footer>
+
+    <script>
+        // --- SIDEBAR DRAWER INTERFACES ---
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        const hideMenuHub = () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        closeMenu.addEventListener('click', hideMenuHub);
+        menuOverlay.addEventListener('click', hideMenuHub);
+
+        // --- ACCORDION TOGGLE MECHANICS ---
+        const accordionToggle = document.getElementById('accordionToggle');
+        const stepsPanel = document.getElementById('stepsPanel');
+        const arrowIcon = document.getElementById('arrowIcon');
+
+        accordionToggle.addEventListener('click', () => {
+            toggleAccordion();
+        });
+
+        function toggleAccordion(forceOpen = false) {
+            if (stepsPanel.classList.contains('open') && !forceOpen) {
+                stepsPanel.classList.remove('open');
+                stepsPanel.style.maxHeight = null;
+                arrowIcon.textContent = "▼";
+            } else {
+                stepsPanel.classList.add('open');
+                stepsPanel.style.maxHeight = stepsPanel.scrollHeight + "px";
+                arrowIcon.textContent = "▲";
+            }
+        }
+
+        // --- BINARY COMPUTATIONAL ENGINE ---
+        const expressionView = document.getElementById('expressionView');
+        const resultView = document.getElementById('resultView');
+        const stepsBox = document.getElementById('stepsBox');
+        const calcContainer = document.getElementById('calcContainer');
+
+        let currentInputString = "";
+        let isEvaluatedState = false;
+
+        document.querySelectorAll('.calc-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const char = button.getAttribute('data-char');
+                const action = button.getAttribute('data-action');
+                
+                if (char) handleCharacterInput(char);
+                if (action === 'clear') resetCalculator();
+                if (action === 'evaluate') processCalculation();
+            });
+        });
+
+        function handleCharacterInput(char) {
+            const operators = ['+', '-'];
+            
+            if (isEvaluatedState) {
+                if (operators.includes(char)) {
+                    currentInputString = resultView.textContent + char;
+                } else {
+                    currentInputString = char;
+                }
+                isEvaluatedState = false;
+            } else {
+                if (operators.includes(char) && operators.includes(currentInputString.slice(-1))) {
+                    currentInputString = currentInputString.slice(0, -1) + char;
+                } else {
+                    currentInputString += char;
+                }
+            }
+            resultView.textContent = currentInputString || "0";
+            expressionView.textContent = ""; 
+        }
+
+        function resetCalculator() {
+            currentInputString = "";
+            isEvaluatedState = false;
+            resultView.textContent = "0";
+            expressionView.textContent = "";
+            stepsBox.innerHTML = "Input binary equations (e.g., 1101+1011) and click '=' to generate the textbook logic sequence trace matrix.";
+            if (stepsPanel.classList.contains('open')) {
+                stepsPanel.style.maxHeight = stepsPanel.scrollHeight + "px";
+            }
+        }
+
+        function processCalculation() {
+            if (!currentInputString) return;
+
+            if (['+', '-'].includes(currentInputString.slice(-1))) {
+                currentInputString = currentInputString.slice(0, -1);
+            }
+
+            try {
+                // Parse multiple binary formula tokens sequentially
+                let tokens = currentInputString.match(/([01]+|[+-])/g);
+                if (!tokens || tokens.length === 0) throw new Error("Syntax Error: Invalid Input");
+
+                // Validate that elements alternate correctly (Operand, Operator, Operand...)
+                for (let i = 0; i < tokens.length; i++) {
+                    if (i % 2 === 0) {
+                        if (!/^[01]+$/.test(tokens[i])) throw new Error("Syntax Error: Invalid Binary Operand");
+                    } else {
+                        if (tokens[i] !== '+' && tokens[i] !== '-') throw new Error("Syntax Error: Invalid Operator");
+                    }
+                }
+
+                let runningDec = parseInt(tokens[0], 2);
+                let runningBinStr = tokens[0];
+                let htmlTrace = `<span style="color: #00ff87; font-weight: bold;">[Chained Binary Evaluation Trace]</span><br><br>`;
+                
+                let stepCount = 1;
+
+                // Evaluate the string left-to-right using pairs of [operator, operand]
+                for (let i = 1; i < tokens.length; i += 2) {
+                    let operator = tokens[i];
+                    let nextBinStr = tokens[i+1];
+                    let nextDec = parseInt(nextBinStr, 2);
+
+                    let operand1Str = runningBinStr;
+                    let operand2Str = nextBinStr;
+                    let prevDec = runningDec;
+
+                    if (operator === '+') runningDec = prevDec + nextDec;
+                    if (operator === '-') {
+                        runningDec = prevDec - nextDec;
+                        if (runningDec < 0) throw new Error("Negative Binary Output Unhandled");
+                    }
+
+                    let finalBinResultStr = runningDec.toString(2);
+                    runningBinStr = finalBinResultStr;
+
+                    // Setup layout values for formatting the current step matrix
+                    let maxLength = Math.max(operand1Str.length, operand2Str.length, finalBinResultStr.length);
+                    let paddedOp1 = operand1Str.padStart(maxLength, '0');
+                    let paddedOp2 = operand2Str.padStart(maxLength, '0');
+                    let paddedRes = finalBinResultStr.padStart(maxLength, '0');
+
+                    // Step card wrapper formatting
+                    htmlTrace += `<div style="margin-bottom: 25px; border-left: 3px solid #00c6ff; padding-left: 12px; background: rgba(30, 41, 59, 0.1); padding-top: 8px; padding-bottom: 8px; border-radius: 0 8px 8px 0;">`;
+                    htmlTrace += `<span style="color: #00c6ff; font-weight: bold;">Step ${stepCount}: ${operand1Str}<sub>2</sub> ${operator} ${operand2Str}<sub>2</sub></span><br><br>`;
+
+                    let colPlaceValues = [];
+                    let colPowers = [];
+                    let carryRow = Array(maxLength).fill(0);
+                    let subLogicNotes = [];
+
+                    if (operator === '+') {
+                        let currentCarry = 0;
+                        for (let j = maxLength - 1; j >= 0; j--) {
+                            let idx = maxLength - 1 - j;
+                            colPlaceValues.unshift(Math.pow(2, idx));
+                            colPowers.unshift(`2<sup>${idx}</sup>`);
+
+                            let bit1 = parseInt(paddedOp1[j] || '0');
+                            let bit2 = parseInt(paddedOp2[j] || '0');
+                            let colSum = bit1 + bit2 + currentCarry;
+                            
+                            if (colSum >= 2) {
+                                let nextCarry = Math.floor(colSum / 2);
+                                if (j > 0) carryRow[j - 1] = nextCarry;
+                                subLogicNotes.unshift(`Column ${idx} (2<sup>${idx}</sup>): ${bit1} + ${bit2} ${currentCarry ? '+ ' + currentCarry + ' (carry)' : ''} = ${colSum} ➔ Keeps ${colSum % 2}, Carries ${nextCarry}`);
+                                currentCarry = nextCarry;
+                            } else {
+                                subLogicNotes.unshift(`Column ${idx} (2<sup>${idx}</sup>): ${bit1} + ${bit2} ${currentCarry ? '+ ' + currentCarry + ' (carry)' : ''} = ${colSum} ➔ Keeps ${colSum}`);
+                                currentCarry = 0;
+                            }
+                        }
+                    } else {
+                        let borrow = 0;
+                        for (let j = maxLength - 1; j >= 0; j--) {
+                            let idx = maxLength - 1 - j;
+                            colPlaceValues.unshift(Math.pow(2, idx));
+                            colPowers.unshift(`2<sup>${idx}</sup>`);
+
+                            let bit1 = parseInt(paddedOp1[j] || '0') - borrow;
+                            let bit2 = parseInt(paddedOp2[j] || '0');
+
+                            if (bit1 < bit2) {
+                                subLogicNotes.unshift(`Column ${idx} (2<sup>${idx}</sup>): Borrow 2 from next left column ➔ (2 + ${bit1}) - ${bit2} = 1`);
+                                borrow = 1;
+                            } else {
+                                subLogicNotes.unshift(`Column ${idx} (2<sup>${idx}</sup>): ${bit1} - ${bit2} = ${bit1 - bit2}`);
+                                borrow = 0;
+                            }
+                        }
+                    }
+
+                    // Render current step matrix table structure
+                    htmlTrace += `<table class="trace-table">`;
+                    
+                    htmlTrace += `<tr><td></td>`;
+                    colPlaceValues.forEach(v => htmlTrace += `<td style="color: #64748b; font-size:0.8rem;">${v}</td>`);
+                    htmlTrace += `</tr>`;
+
+                    htmlTrace += `<tr style="color: #00c6ff; font-weight: bold;"><td></td>`;
+                    colPowers.forEach(p => htmlTrace += `<td>${p}</td>`);
+                    htmlTrace += `</tr>`;
+
+                    if (operator === '+') {
+                        htmlTrace += `<tr style="color: #ff6b6b; font-size: 0.85rem;"><td style="text-align:left; color:#475569;">Carry:</td>`;
+                        carryRow.forEach(c => htmlTrace += `<td>${c ? c : ''}</td>`);
+                        htmlTrace += `</tr>`;
+                    }
+
+                    htmlTrace += `<tr><td style="text-align:left; color:#64748b;">Subtotal:</td>`;
+                    for(let b of paddedOp1) htmlTrace += `<td>${b}</td>`;
+                    htmlTrace += `</tr>`;
+
+                    htmlTrace += `<tr class="row-line"><td style="text-align:left; color:#00ff87;">${operator} Value:</td>`;
+                    for(let b of paddedOp2) htmlTrace += `<td>${b}</td>`;
+                    htmlTrace += `</tr>`;
+
+                    htmlTrace += `<tr class="row-double-line" style="font-weight:bold; color:#00ff87; font-size:1.1rem;"><td style="text-align:left;">Output:</td>`;
+                    for(let b of paddedRes) htmlTrace += `<td>${b}</td>`;
+                    htmlTrace += `</tr>`;
+                    
+                    htmlTrace += `</table><br>`;
+
+                    htmlTrace += `<span style="color: #64748b; font-weight: bold;">Step Logic Breakdown:</span><br>`;
+                    htmlTrace += subLogicNotes.join('<br>') + `<br>`;
+                    htmlTrace += `</div>`;
+
+                    stepCount++;
+                }
+
+                htmlTrace += `<div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">`;
+                htmlTrace += `Final Chained Valuation: <strong>${runningBinStr}<sub>2</sub> (Decimal: ${runningDec}<sub>10</sub>)</strong>`;
+                htmlTrace += `</div>`;
+
+                // Update UI Display Nodes
+                expressionView.textContent = currentInputString;
+                resultView.textContent = runningBinStr;
+                stepsBox.innerHTML = htmlTrace;
+
+                isEvaluatedState = true;
+                toggleAccordion(true);
+
+            } catch (err) {
+                calcContainer.classList.add('invalid-flash');
+                resultView.style.color = '#ef4444';
+                resultView.textContent = "Error";
+                stepsBox.innerHTML = `<span style="color: #ef4444; font-weight: bold;">[Computation Fault Traceback]</span><br><br>➔ Sequence aborted. Reason: ${err.message}.`;
+                
+                setTimeout(() => { calcContainer.classList.remove('invalid-flash'); }, 4000);
+                setTimeout(() => { resultView.style.color = '#fff'; resetCalculator(); }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>
